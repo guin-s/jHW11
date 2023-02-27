@@ -41,5 +41,41 @@ public class ManagerTest {
 
     }
 
+    @Test
+    public void SearchByNameWithOneResult() {
+        ProdRepository repository = new ProdRepository();
+        Manager manager = new Manager(repository);
+        Book book1 = new Book(1, "BookName1", 100, "author1");
+        Book book2 = new Book(2, "BookName2", 100, "author2");
+        Book book3 = new Book(3, "BookName3", 100, "author3");
 
+        manager.add(book1);
+        manager.add(book2);
+        manager.add(book3);
+
+        Product[] actual = manager.searchBy("ame1");
+        Product[] expected = {book1};
+
+        Assertions.assertArrayEquals(expected, actual);
+
+    }
+
+    @Test
+    public void SearchByNameWithNoResults() {
+        ProdRepository repository = new ProdRepository();
+        Manager manager = new Manager(repository);
+        Book book1 = new Book(1, "BookName1", 100, "author1");
+        Book book2 = new Book(2, "BookName2", 100, "author2");
+        Book book3 = new Book(3, "BookName3", 100, "author3");
+
+        manager.add(book1);
+        manager.add(book2);
+        manager.add(book3);
+
+        Product[] actual = manager.searchBy("Game");
+        Product[] expected = {};
+
+        Assertions.assertArrayEquals(expected, actual);
+
+    }
 }
